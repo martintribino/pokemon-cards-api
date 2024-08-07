@@ -1,0 +1,15 @@
+version: '3.7'
+services:
+  postgres:
+    image: postgres:13
+    container_name: pockemon_cards
+    ports:
+      - '5432:5432'
+    environment:
+      POSTGRES_DB: pockemon_cards_db
+      POSTGRES_USER: pockemon_cards_user
+      POSTGRES_PASSWORD: pockemon_cards_password
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+volumes:
+  postgres_data:

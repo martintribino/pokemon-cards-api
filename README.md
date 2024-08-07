@@ -32,6 +32,13 @@
 $ npm install
 ```
 
+## DB Installation
+
+```bash
+# We use docker compose to install pg db
+$ docker compose up -d
+```
+
 ## Running the app
 
 ```bash
