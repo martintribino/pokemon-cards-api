@@ -34,6 +34,14 @@ export class CardService {
     return card;
   }
 
+  async findByName(name: string): Promise<Card> {
+    const card = await this.cardRepository.findOneBy({name});
+    if (!card) {
+      throw new NotFoundException(`Card with name ${name} not found`);
+    }
+    return card;
+  }
+
   async findAll(): Promise<Card[]> {
     return this.cardRepository.find();
   }
