@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, Param, ParseIntPipe, Post, Put } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, ParseIntPipe, Post, Put, Query } from '@nestjs/common';
 import { CardService } from './card.service';
 import { Card } from 'src/model/card.entity';
 import { BattleService } from 'src/battle/battle.service';
@@ -29,8 +29,13 @@ export class CardController {
   }
 
   @Get()
-  async findAll(): Promise<Card[]> {
-    return this.cardService.findAll();
+  async getAllCards(
+    @Query('type') type?: string,
+    @Query('name') name?: string,
+    @Query('page') page: number = 1,
+    @Query('limit') limit: number = 10,
+  ): Promise<{ data: Card[], total: number }> {
+    return this.cardService.getAllCards(type, name, page, limit);
   }
 
   @Delete(':id')

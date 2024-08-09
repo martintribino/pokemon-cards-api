@@ -46,6 +46,30 @@ export class CardService {
     return this.cardRepository.find();
   }
 
+  async getAllCards(
+    type?: string,
+    name?: string,
+    page: number = 1,
+    limit: number = 10,
+  ): Promise<{ data: Card[], total: number }> {
+    const query = this.cardRepository.createQueryBuilder('card');
+
+    if (type) {
+      query.andWhere('card.type = :type', { type });
+    }
+
+    if (name) {
+      query.andWhere('card.name ILIKE :name', { name: `%${name}%` });
+    }
+
+    const [data, total] = await query
+      .skip((page - 1) * limit)
+      .take(limit)
+      .getManyAndCount();
+
+    return { data, total };
+  }
+
   async delete(id: number): Promise<void> {
     const result = await this.cardRepository.delete(id);
     if (result.affected === 0) {
