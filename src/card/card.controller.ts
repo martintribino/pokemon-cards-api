@@ -1,9 +1,11 @@
-import { Body, Controller, Delete, Get, Param, ParseIntPipe, Post, Put, Query } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, ParseIntPipe, Post, Put, Query, UseGuards } from '@nestjs/common';
 import { CardService } from './card.service';
 import { Card } from 'src/model/card.entity';
 import { BattleService } from 'src/battle/battle.service';
+import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
 
 @Controller('cards')
+@UseGuards(JwtAuthGuard)
 export class CardController {
   constructor(
     private readonly cardService: CardService,

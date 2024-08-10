@@ -2,9 +2,15 @@ import { Module, OnModuleInit } from '@nestjs/common';
 import { CardModule } from './card/card.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { SeedService } from './seed/seed.service';
+import { ConfigModule } from '@nestjs/config';
+import { AuthModule } from './auth/auth.module';
+import { UserModule } from './user/user.module';
 
 @Module({
   imports: [
+    ConfigModule.forRoot({
+      isGlobal: true,
+    }),
     TypeOrmModule.forRoot({
       type: 'postgres',
       host: '127.0.0.1',
@@ -14,7 +20,9 @@ import { SeedService } from './seed/seed.service';
       autoLoadEntities: true,
       synchronize: true,
     }),
+    AuthModule,
     CardModule,
+    UserModule,
   ],
   providers: [SeedService],
 })
