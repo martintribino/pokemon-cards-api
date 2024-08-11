@@ -26,19 +26,21 @@ export class AuthService {
 
   async login(loginDto: LoginDto) {
     const user = await this.validateUser(loginDto.email, loginDto.password);
-    const payload = { email: user.email, name: user.name };
+    const payload = { username: user.email, sub: user.name };
+    const token = this.jwtService.sign(payload);
     return {
-      access_token: this.jwtService.sign(payload),
+      access_token: token,
       email: user.email,
       name: user.name
     };
   }
 
-  async register(email: string, password: string, name: string) {
+  async register(email: string, passwordParam: string, name: string) {
     const user = await this.userService.findByEmail(email);
     if (user) {
       throw new ConflictException('User already exist');
     }
+    const password = await bcrypt.hash(passwordParam, 10);
     const userCreated = await this.userService.createUser(email, password, name);
     return {
       email: userCreated.email,

@@ -3,6 +3,7 @@ import { CardService } from './card.service';
 import { Card } from 'src/model/card.entity';
 import { BattleService } from 'src/battle/battle.service';
 import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
+import { JwtService } from '@nestjs/jwt';
 
 @Controller('cards')
 @UseGuards(JwtAuthGuard)
@@ -10,6 +11,7 @@ export class CardController {
   constructor(
     private readonly cardService: CardService,
     private readonly battleService: BattleService,
+    private readonly jwtService: JwtService,
   ) {}
 
   @Post()
