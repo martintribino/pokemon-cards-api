@@ -17,7 +17,7 @@ export class JwtAuthGuard extends AuthGuard('jwt') {
 
     try {
       const decoded = await this.jwtService.verifyAsync(token, {secret: 'cook_unity_secret'});
-      request.user = decoded; // Attach user info to the request
+      request.user = decoded;
     } catch (error) {
       throw new UnauthorizedException('Invalid token');
     }

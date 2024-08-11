@@ -14,6 +14,9 @@ export class Card {
   @Column()
   hp: number;
 
+  @Column({ nullable: true })
+  src: string;
+
   @Column('simple-array')
   abilities: string[];
 

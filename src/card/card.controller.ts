@@ -51,7 +51,7 @@ export class CardController {
   async simulateBattle(
     @Param('id', ParseIntPipe) id: number,
     @Param('opponentId', ParseIntPipe) opponentId: number,
-  ): Promise<string> {
+  ): Promise<{ message: string, defeat: boolean }> {
     return this.battleService.simulateBattle(id, opponentId);
   }
 
