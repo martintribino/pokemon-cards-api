@@ -36,10 +36,13 @@ $ npm install
 
 ```bash
 # We use docker compose to install pg db
+# (we must have docker and pg running)
 $ docker compose up -d
 ```
 
 ## Running the app
+## The api will run in http://localhost:3001/
+## Swagger will run in http://localhost:3001/api/
 
 ```bash
 # development

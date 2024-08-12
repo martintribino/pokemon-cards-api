@@ -7,14 +7,11 @@ export class User {
   id: number;
 
   @Column()
-  @MinLength(4)
   name: string;
 
   @Column({ unique: true })
-  @IsEmail()
   email: string;
 
   @Column()
-  @MinLength(6)
   password: string;
 }

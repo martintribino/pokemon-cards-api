@@ -6,6 +6,11 @@ export class BattleService {
   constructor(private readonly cardService: CardService) {}
 
   async simulateBattle(attackerId: number, defenderId: number): Promise<{ message: string, defeat: boolean }> {
+
+    if (attackerId === defenderId) {
+      throw new BadRequestException(`Attacker and defender must be different`);
+    }
+
     const attacker = await this.cardService.findById(attackerId);
     const defender = await this.cardService.findById(defenderId);
 
@@ -25,13 +30,5 @@ export class BattleService {
       ? `${attacker.name.toUpperCase()} defeats ${defender.name.toUpperCase()}`
       : `${attacker.name.toUpperCase()} does not defeat ${defender.name.toUpperCase()}`;
     return { message, defeat }
-  }
-
-  async getWeaknessesAndResistances(cardId: number): Promise<{ weaknesses: string[], resistances: string[] }> {
-    const card = await this.cardService.findById(cardId);
-    return {
-      weaknesses: card.weaknesses,
-      resistances: card.resistances,
-    };
   }
 }

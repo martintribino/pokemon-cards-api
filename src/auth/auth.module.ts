@@ -6,7 +6,6 @@ import { AuthController } from './auth.controller';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { JwtStrategy } from './jwt.strategy';
 import { UserModule } from 'src/user/user.module';
-import { CardService } from 'src/card/card.service';
 
 @Module({
   imports: [
